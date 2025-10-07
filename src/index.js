@@ -105,13 +105,11 @@ app.get('/', (req, res) => {
         <div class="game-container" id="gameContainer">
             <canvas id="gameCanvas"></canvas>
 
-            <!-- Start Screen -->
             <div id="startScreen" class="ui-screen">
                 <div class="title">INVADERS</div>
                 <button id="startButton" class="button">Start Game</button>
             </div>
 
-            <!-- Game Over Screen -->
             <div id="gameOverScreen" class="ui-screen hidden">
                 <div class="title">Game Over</div>
                 <div id="finalScore" class="score"></div>
@@ -855,41 +853,43 @@ app.get('/', (req, res) => {
                 const alpha = 0.9; // Transparency
 
                 if (isPressed) {
-                    ctx.fillStyle = `rgba(34, 34, 34, ${alpha})`; // #222
+                    // FIX: Escaped the backticks in the template literals below
+                    ctx.fillStyle = \`rgba(34, 34, 34, \${alpha})\`; // #222
                     ctx.beginPath();
                     ctx.roundRect(x, y, width, height, cornerRadius);
                     ctx.fill();
 
-                    ctx.fillStyle = `rgba(153, 51, 255, ${alpha * 0.7})`;
+                    ctx.fillStyle = \`rgba(153, 51, 255, \${alpha * 0.7})\`;
                     ctx.beginPath();
                     ctx.roundRect(x, y - bevelOffset, width, height, cornerRadius);
                     ctx.fill();
 
-                    ctx.strokeStyle = `rgba(102, 51, 153, ${alpha})`;
+                    ctx.strokeStyle = \`rgba(102, 51, 153, \${alpha})\`;
                     ctx.lineWidth = 2;
                     ctx.beginPath();
                     ctx.roundRect(x, y - bevelOffset, width, height, cornerRadius);
                     ctx.stroke();
                     
-                    ctx.fillStyle = `rgba(224, 224, 224, ${alpha})`;
+                    ctx.fillStyle = \`rgba(224, 224, 224, \${alpha})\`;
                 } else {
-                    ctx.fillStyle = `rgba(34, 34, 34, ${alpha * 0.5})`;
+                    // FIX: Escaped the backticks in the template literals below
+                    ctx.fillStyle = \`rgba(34, 34, 34, \${alpha * 0.5})\`;
                     ctx.beginPath();
                     ctx.roundRect(x, y, width, height, cornerRadius);
                     ctx.fill();
 
-                    ctx.fillStyle = `rgba(0, 0, 0, ${alpha * 0.5})`;
+                    ctx.fillStyle = \`rgba(0, 0, 0, \${alpha * 0.5})\`;
                     ctx.beginPath();
                     ctx.roundRect(x, y - bevelOffset, width, height, cornerRadius);
                     ctx.fill();
 
-                    ctx.strokeStyle = `rgba(102, 51, 153, ${alpha * 0.5})`;
+                    ctx.strokeStyle = \`rgba(102, 51, 153, \${alpha * 0.5})\`;
                     ctx.lineWidth = 2;
                     ctx.beginPath();
                     ctx.roundRect(x, y - bevelOffset, width, height, cornerRadius);
                     ctx.stroke();
                     
-                    ctx.fillStyle = `rgba(224, 224, 224, ${alpha * 0.5})`;
+                    ctx.fillStyle = \`rgba(224, 224, 224, \${alpha * 0.5})\`;
                 }
                 
                 const fontSize = height * (text === 'spacebar' ? 0.38 : 0.4);
@@ -1287,8 +1287,8 @@ app.get('/', (req, res) => {
             }
 
             function drawScore() {
-                const scoreText = `Score: ${score}`;
-                ctx.font = `${blockSize * 0.7}px "Press Start 2P"`;
+                const scoreText = \`Score: \${score}\`;
+                ctx.font = \`\${blockSize * 0.7}px "Press Start 2P"\`;
                 let flashColor = '#FFD700';
                 if (isFlashingScore && isFlashingScoreNegative) {
                     flashColor = '#DC143C';
@@ -1311,7 +1311,7 @@ app.get('/', (req, res) => {
                 if (player && player.isCritical && !player.isDestroyed) {
                     if (Math.floor(Date.now() / 300) % 2 === 0) {
                         ctx.fillStyle = '#DC143C';
-                        ctx.font = `${blockSize * 0.55}px "Press Start 2P"`;
+                        ctx.font = \`\${blockSize * 0.55}px "Press Start 2P"\`;
                         ctx.fillText('CRITICAL DAMAGE!', canvas.width / 2, blockSize * 2.5);
                     }
                 }
@@ -1353,7 +1353,7 @@ app.get('/', (req, res) => {
                     titleElement.textContent = "Game Over";
                 }
 
-                finalScoreElement.textContent = `Final Score: ${score}`;
+                finalScoreElement.textContent = \`Final Score: \${score}\`;
                 gameOverScreen.classList.remove('hidden');
                 postParent('gameEnded');
             }
