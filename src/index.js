@@ -158,7 +158,7 @@ app.get('/', (req, res) => {
 
             // --- Easy Origin Switch ---
             // Set to true when deploying to GitHub Pages, false for local development
-            const IS_PRODUCTION = false;
+            const IS_PRODUCTION = true;
             const PARENT_ORIGIN = IS_PRODUCTION ? 'https://jamesworldbuilder.github.io' : '*';
 
             // --- Parent Window Communication ---
