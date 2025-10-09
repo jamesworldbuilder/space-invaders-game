@@ -1380,8 +1380,18 @@ app.get('/', (req, res) => {
             }
 
             // --- Event Listeners ---
-            startButton.addEventListener('click', startGame);
-            retryButton.addEventListener('click', startGame);
+            startButton.addEventListener("click", () => {
+                startScreen.style.display = "none";
+                startGame();
+                postParent("startButtonPressed"); // tells parent to show controls
+            });
+
+            retryButton.addEventListener("click", () => {
+                gameOverScreen.classList.add("hidden");
+                startGame();
+                postParent("startButtonPressed"); // unified behavior
+            });
+
 
             window.addEventListener('keydown', (e) => {
                 if (player && !player.isDestroyed && !isPaused) {
